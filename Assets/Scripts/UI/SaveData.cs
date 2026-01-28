@@ -1,10 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class SaveData
 {
-    //La posicion del player
+    // La posición del player
     public Vector3 playerPosition;
-    //EL nombre de la zona dentro del mapa: T1, F1...
+    // El nombre de la zona dentro del mapa: T1, F1, ...
     public string mapBoundary;
+    public List<InventorySaveData> inventorySaveData;
 }

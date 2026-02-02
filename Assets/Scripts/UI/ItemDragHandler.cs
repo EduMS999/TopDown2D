@@ -5,6 +5,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 {
     Transform originalParent;
     CanvasGroup canvasGroup;
+    public float minDroipDistance = 2f;
+    public float maxDroipDistance = 3f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -60,10 +62,47 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
         else
         {
-            // No hay slot debajo del punto en el que soltamos
-            transform.SetParent(originalParent);
+            // No hay hueco donde estamos soltando el objeto:
+            if (!IsWithinInventory(eventData.position))
+            {
+                // a) Si soltamos el objeto fuera del inventario lo dejamos caer en el escenario
+                DropItem(originalSlot);
+            }
+            else
+            {
+                // b) Si dejamos caer el objeto en una posición donde no hay slot dentro del inventario
+                transform.SetParent(originalParent);
+            }
         }
-        GetComponent<RectTransform>().anchoredPosition = Vector2.zero; // Centramos
+        GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
     }
 
+    bool IsWithinInventory(Vector2 mousePosition)
+    {
+        RectTransform inventoryRect = originalParent.parent.GetComponent<RectTransform>();
+        return RectTransformUtility.RectangleContainsScreenPoint(inventoryRect, mousePosition);
+    }
+
+    void DropItem(Slot originalSlot)
+    {
+        originalSlot.currentItem = null;
+
+        // Buscamos el objeto Player
+        Transform playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+        if (playerTransform == null)
+        {
+            Debug.Log("Falta la etiqueta 'Player'");
+            return;
+        }
+        // Generamos una posición aleatoria para soltar el objeto pero cerca de la posición del jugador
+        Vector2 dropOffset = Random.insideUnitCircle.normalized * Random.Range(minDroipDistance, maxDroipDistance);
+        Vector2 dropPosition = (Vector2)playerTransform.position + dropOffset;
+
+        // Instanciamos el objeto a soltar
+        GameObject dropItem = Instantiate(gameObject, dropPosition, Quaternion.identity);
+        dropItem.GetComponent<BounceEffect>().StartBounce();
+
+        // Destruimos el objeto del UI
+        Destroy(gameObject);
+    }
 }

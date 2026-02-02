@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: ID
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -2329765495033768749, guid: b5bb930dc712f794394d98e5206ed17e, type: 3}
+      propertyPath: Name
+      value: "Poci\xF3n Marr\xF3n"
+      objectReference: {fileID: 0}
+    - target: {fileID: -909990072814225230, guid: b5bb930dc712f794394d98e5206ed17e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1944081976, guid: 0cdd44a91724ac648921057c841e30b9, type: 3}
     - target: {fileID: 2474981719970563285, guid: b5bb930dc712f794394d98e5206ed17e, type: 3}
       propertyPath: m_Name
       value: ItemPocionMarron Variant

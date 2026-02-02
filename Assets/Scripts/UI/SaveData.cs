@@ -9,4 +9,5 @@ public class SaveData
     // El nombre de la zona dentro del mapa: T1, F1, ...
     public string mapBoundary;
     public List<InventorySaveData> inventorySaveData;
+    public List<InventorySaveData> hotbarSaveData;
 }

@@ -22,6 +22,8 @@ public class MapTransition : MonoBehaviour
         {
             confiner.BoundingShape2D = mapBoundry;
             UpdatePlayerPosition(collision.gameObject);
+            MapController_Manual.Instance?.HighlightArea(mapBoundry.name);
+            MapController_Dynamic.Instance?.UpdateCurrentArea(mapBoundry.name);
         }
     }
 

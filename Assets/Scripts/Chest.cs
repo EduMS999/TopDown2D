@@ -48,6 +48,7 @@ public class Chest : MonoBehaviour, IInteractable
     private void OpenChest()
     {
         SetOpened(true); // Cambia el estado y la imagen
+        SoundEffectManager.Play("Chest"); // Reproduce el sonido de apertura
 
         // Si hay un objeto asignado dentro del cofre...
         if (itemPrefab)

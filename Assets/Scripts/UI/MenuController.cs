@@ -16,7 +16,12 @@ public class MenuController : MonoBehaviour
         // Edit > Poject Settins > Player > Other Settings > Active Input Handling
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            if (!menuCanvas.activeSelf && PauseController.IsGamePaused)
+            {
+                return; // Si estamos pausados por otra razón, no queremos alterar esta lógica
+            }
             menuCanvas.SetActive(!menuCanvas.activeSelf);
+            PauseController.SetPause(menuCanvas.activeSelf);
         }
 
     }
